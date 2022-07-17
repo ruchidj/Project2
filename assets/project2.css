@@ -1,0 +1,29 @@
+.game-section {
+    margin: auto;
+    height: 400px;
+    width: 400px;
+}
+
+.timer {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    max-height: min-content
+}
+
+.tile {
+    margin: 5px;
+    position: relative;
+    transform: scale(1);
+    transform-style: preserve-3d;
+    transition: transform .5s;
+}
+
+.tile:active {
+    border: aquamarine solid 2px;
+    transition: transform .2s;
+}
+
+.tile:hover {
+    transform: scale(0.97);
+}
