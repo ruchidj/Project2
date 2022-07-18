@@ -34,7 +34,7 @@ function deleteChildren(element) {
 }
 
 // shuffles the contents of a given 1D array
-function shuffleArray(array) {
+function shuffleAnArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (array.length));
         [array[i], array[j]] = [array[j], array[i]];
@@ -60,8 +60,18 @@ function checkMove() {
 
 }
 
+// accept the form here to then build out the game
+function initializeGame(form) {
+    let size = form.size.value;
+    let img = form.image.value;
+
+    // TODO: Add validation
+
+    buildBoard(size, img);
+}
+
 // builds the play-board
-function buildBoard(size) {
+function buildBoard(size, img) {
     let gameSection = document.getElementById('game-section');
     // for safety
     deleteChildren(gameSection);
@@ -80,7 +90,7 @@ function buildBoard(size) {
 }
 
 // builds an individual tile on the board
-function buildTile(row, col, identifier, section, numTiles) {
+function buildTile(row, col, identifier, section, numTiles, img) {
     let tile = document.createElement('div');
     // id is original position according to our math
     tile.id = identifier;
@@ -95,7 +105,7 @@ function buildTile(row, col, identifier, section, numTiles) {
     tile.style.height = (section.clientHeight / numTiles) - 10 + "px";
 
     // builds the individual img for us
-    tile.appendChild(buildImg("./assets/img/easy_1.jpg", identifier))
+    tile.appendChild(buildImg(img, identifier))
 
     return tile;
 }
