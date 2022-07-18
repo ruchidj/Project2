@@ -13,17 +13,15 @@
         * Add in more backgrounds - 1 feature (multiple backgrounds)
         * Multi-select on hover - 1 feature (multi-select)
 
-
     *** FIGURE OUT EXTRA FEATURE??? - Second scale of difficulty (all white/all black tiles)??? ***
- */
 
-/*
     Ruchita - TODO:
         * Finish Shuffler
         * Finish Solver - 1 Feature (solver)
         * End of game notification - 1 Feature (EoG noti)
 */
 const BASE_DISTANCE = 100;
+let track_moves = 0;
 
 // helper functions
 // deletes all children of a given element
@@ -36,7 +34,7 @@ function deleteChildren(element) {
 }
 
 // shuffles the contents of a given 1D array
-function shuffleArray(array) {
+function shuffleAnArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (array.length));
         [array[i], array[j]] = [array[j], array[i]];
@@ -51,7 +49,7 @@ function shuffleArray(array) {
 // countdown from @time
 function timer(){
     let sec = 0;
-    let timer = setInterval(function(){
+    setInterval(function(){
         document.getElementById('timer').innerHTML='00:' + sec;
         sec++;
     }, 1000);
@@ -62,11 +60,29 @@ function checkMove() {
 
 }
 
+// accept the form here to then build out the game
+function initializeGame(form) {
+    let size = form.size.value;
+    let img = form.image.value;
+
+    // TODO: Add validation
+
+    buildBoard(size, img);
+}
+
 // builds the play-board
-function buildBoard(size) {
+function buildBoard(size, img) {
     let gameSection = document.getElementById('game-section');
     // for safety
     deleteChildren(gameSection);
+
+    let currentTile = 0;
+    for (const row of Array(size).keys()) {
+        for (const col of Array(size).keys()) {
+            gameSection.append(buildTile(row, col, currentTile, gameSection, (size * size)));
+            currentTile += 1;
+        }
+    }
 
     // second to last thing to do is start the audio and timer
     document.getElementById('bgm-music').play();
@@ -74,13 +90,15 @@ function buildBoard(size) {
 }
 
 // builds an individual tile on the board
-function buildTile(identifier, section, numTiles) {
+function buildTile(row, col, identifier, section, numTiles, img) {
     let tile = document.createElement('div');
     // id is original position according to our math
     tile.id = identifier;
+
+    tile.innerText = identifier;
     // data-column, data-row give CURRENT location of tile
-    tile.setAttribute('data-column', );
-    tile.setAttribute('data-row',);
+    tile.setAttribute('data-column', col);
+    tile.setAttribute('data-row', row);
     tile.addEventListener('click', checkMove);
 
     tile.style.width = (section.clientWidth / numTiles) - 10 + "px";
@@ -88,6 +106,8 @@ function buildTile(identifier, section, numTiles) {
 
     // builds the individual img for us
     tile.appendChild(buildImg(img, identifier))
+
+    return tile;
 }
 
 /*
