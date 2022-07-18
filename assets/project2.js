@@ -102,7 +102,9 @@ function buildImg(image, tileLocation) {
     let imgElement = document.createElement('img');
     imgElement.src = image;
 
-    // underlying assumption img is forced into 400 x 400
+    // TODO: underlying assumption img is forced into 400 x 400
+
+    return imgElement;
 }
 
 function moveTile(emptyTile,Tile){
