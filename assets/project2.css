@@ -12,8 +12,8 @@
 }
 
 .tile {
-    width: 100px;
-    height: 100px;
+    width: 95px;
+    height: 95px;
     float: left;
     text-align: center;
     border: 2px black solid;
@@ -53,66 +53,66 @@
 /*
  * Tile definitions
  */
-#one {
+#0 {
     background-position: 0 0;
 }
 
-#two {
+#1 {
     background-position: -100px 0;
 }
 
-#three {
+#2 {
     background-position: -200px 0;
 }
 
-#four {
+#3 {
     background-position: -300px 0;
 }
 
-#five {
+#4 {
     background-position: 0 -100px;
 }
 
-#six {
+#5 {
     background-position: -100px -100px;
 }
 
-#seven {
+#6 {
     background-position: -200px -100px;
 }
 
-#eight {
+#7 {
     background-position: -300px -100px;
 }
 
-#nine {
+#8 {
     background-position: 0 -200px;
 }
 
-#ten {
+#9 {
     background-position: -100px -200px;
 }
 
-#eleven {
+#10 {
     background-position: -200px -200px;
 }
 
-#twelve {
+#11 {
     background-position: -300px -200px;
 }
 
-#thirteen {
+#12 {
     background-position: 0 -300px;
 }
 
-#fourteen {
+#13 {
     background-position: -100px -300px;
 }
 
-#fifteen {
+#14 {
     background-position: -200px -300px;
 }
 
-#sixteen {
+#15 {
     border: 2px solid white !important;
 }
