@@ -178,14 +178,16 @@ function checkMove(e) {
     let tile = e.target;
     let emptyTile = document.getElementById(white_tile)
 
-    let oneRowAway = isOneAway(Number(tile.dataset.row), Number(emptyTile.dataset.row));
-    let oneColAway = isOneAway(Number(tile.dataset.column), Number(emptyTile.dataset.column));
-    console.log(oneRowAway, oneColAway);
-    if ( oneRowAway && oneColAway ) {
-        // is one away and can be moved
-        moveTile(emptyTile, tile);
-    }
+    let dX = emptyTile.dataset.row - tile.dataset.row;
+    let dY = emptyTile.dataset.column - tile.dataset.column;
 
+    if (Math.abs(dX) === Math.abs(dY)) {
+        // logical XOR to prevent diagonal swaps
+        console.log(dX, dY);
+        return;
+    }
+    console.log(dX, dY);
+    moveTile(emptyTile, tile);
 }
 
 function moveTile(emptyTile, tile) {
