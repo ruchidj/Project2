@@ -44,16 +44,21 @@ function shuffleAnArray(array) {
     }
 }
 
- function isOneAway(number, other) {
-    return number === (other + 1) || number === (other - 1);
- }
+function isOneAway(number, other) {
+    console.log(number, other);
+    let n_gt_o = number === (other + 1);
+    let n_lt_o = number === (other - 1);
+    let n_eq_o = number === other;
+
+    return n_gt_o || n_lt_o || n_eq_o;
+}
 
 // timing helper
 // countdown from @time
-function timer(){
+function timer() {
     let sec = 0;
-    setInterval(function(){
-        document.getElementById('timer').innerHTML='00:' + sec;
+    setInterval(function () {
+        document.getElementById('timer').innerHTML = '00:' + sec;
         sec++;
     }, 1000);
 }
@@ -69,21 +74,21 @@ function initializeGame(form) {
 
     switch (size) {
         case "4":
-            base_distance = 400/4;
+            base_distance = 400 / 4;
             white_tile = "t15";
             difficulty = "easy";
             edge = 4;
             buildBoard(4, `./assets/img/${img}_${choose}.jpg`);
             return true;
         case "5":
-            base_distance = 400/5;
+            base_distance = 400 / 5;
             white_tile = "t24";
             difficulty = "med";
             edge = 5;
             buildBoard(5, `./assets/img/${img}_${choose}.jpg`);
             return true;
         case "6":
-            base_distance = 400/6;
+            base_distance = 400 / 6;
             white_tile = "t35";
             difficulty = "hard";
             edge = 6;
@@ -100,15 +105,11 @@ function initializeGame(form) {
     }
 
     // default
-    base_distance = 400/4;
+    base_distance = 400 / 4;
     white_tile = "t15";
     difficulty = "easy";
     buildBoard(4, "./assets/img/easy_2.jpg");
     return true;
-}
-
-function buildCss(row, col, identifier) {
-    return `background-position: ${-(col * base_distance)}px ${-(row * base_distance)}px`;
 }
 
 // builds the play-board
@@ -147,12 +148,10 @@ function buildTile(row, col, identifier, section, numTiles, img) {
     tile.id = "t" + identifier;
 
     tile.innerText = identifier;
-    // data-column, data-row give CURRENT location of tile
 
+    // data-column, data-row give CURRENT location of tile
     tile.setAttribute('data-column', col);
     tile.setAttribute('data-row', row);
-    tile.addEventListener('click', checkMove);
-
     tile.classList.add('tile');
 
     if (identifier === (numTiles - 1)) {
@@ -161,10 +160,11 @@ function buildTile(row, col, identifier, section, numTiles, img) {
         tile.style.border = "2px solid white !important"
     } else {
         tile.style.backgroundImage = `url(${img})`;
+        tile.addEventListener('click', checkMove);
     }
     // default for all tiles
-    tile.style.width = (base_distance - 5)+ "px";
-    tile.style.height = (base_distance - 5)+ "px";
+    tile.style.width = (base_distance - 5) + "px";
+    tile.style.height = (base_distance - 5) + "px";
     tile.style.backgroundPositionX = -(col * base_distance) + "px";
     tile.style.backgroundPositionY = -(row * base_distance) + "px";
 
@@ -178,10 +178,56 @@ function checkMove(e) {
     let tile = e.target;
     let emptyTile = document.getElementById(white_tile)
 
+    let oneRowAway = isOneAway(Number(tile.dataset.row), Number(emptyTile.dataset.row));
+    let oneColAway = isOneAway(Number(tile.dataset.column), Number(emptyTile.dataset.column));
+    console.log(oneRowAway, oneColAway);
+    if ( oneRowAway && oneColAway ) {
+        // is one away and can be moved
+        moveTile(emptyTile, tile);
+    }
+
 }
 
-function moveTile(emptyTile,Tile){
+function moveTile(emptyTile, tile) {
+    let emptyCopy = emptyTile.cloneNode(true);
+    let tileCopy = tile.cloneNode(true);
+    /*
+    * .move-up {
+    transform: translate(0, -100px);
+}
 
+.move-down {
+    transform: translate(0, 100px);
+}
+
+.move-left {
+    transform: translate(-100px, 0);
+}
+
+.move-right {
+    transform: translate(100px, 0);
+}*/
+    // somehow convert ^ those into code
+
+    // locate the tile w.r.t empty tile gives us the vector for movement
+    // in (dY, dX)
+    let dX = emptyTile.dataset.row - tile.dataset.row;
+    let dY = emptyTile.dataset.column - tile.dataset.column;
+
+    tileCopy.dataset.row = emptyTile.dataset.row;
+    tileCopy.dataset.column = emptyTile.dataset.column;
+
+    emptyCopy.dataset.row = tile.dataset.row;
+    emptyCopy.dataset.column = tile.dataset.column;
+
+    tileCopy.addEventListener('click', checkMove);
+
+    // tile.style.transform = `translate(${dY * base_distance}px ${dX * base_distance}px`;
+    // tile.style.transform = `translate`
+
+    // simply reorder the elements :5head:
+    document.getElementById('game-section').replaceChild(emptyCopy, tile);
+    document.getElementById('game-section').replaceChild(tileCopy, emptyTile);
 }
 
 function getNeighbours(row, column) {
@@ -198,22 +244,22 @@ function getNeighbours(row, column) {
 
 
 //shuffle Algorithm
-function shuffle(){
+function shuffle() {
     let allTiles = document.getElementsByClassName('tile');
 
-    for(let i=0;i<1000;i++){
+    for (let i = 0; i < 1000; i++) {
         //get the empty cell
-        let emptyCell=document.getElementById('cell33');
-        let neighbours = getNeighbours(3,3)
+        let emptyCell = document.getElementById('cell33');
+        let neighbours = getNeighbours(3, 3)
         let randomCell = Math.floor(Math.random() * neighbours.length);
         let randomNeighbourtile = neighbours[randomCell];
-        moveTile(emptyCell,randomNeighbourtile);
+        moveTile(emptyCell, randomNeighbourtile);
 
     }
 
 }
 
 // Extra feature Cheat Button
-function gameSolver(){
+function gameSolver() {
 
 }
