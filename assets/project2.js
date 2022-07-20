@@ -239,11 +239,11 @@ function shuffle() {
 
     for (let i = 0; i < 1000; i++) {
         //get the empty cell
-        let emptyCell = document.getElementById('cell33');
-        let neighbours = getNeighbours(3, 3)
+        let emptyTile = document.getElementById(white_tile);
+        let neighbours = getNeighbours(emptyTile.dataset.row, emptyTile.dataset.column)
         let randomCell = Math.floor(Math.random() * neighbours.length);
         let randomNeighbourtile = neighbours[randomCell];
-        moveTile(emptyCell, randomNeighbourtile);
+        moveTile(emptyTile, randomNeighbourtile);
 
     }
 
