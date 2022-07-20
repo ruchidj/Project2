@@ -220,9 +220,9 @@ const handleTileClick = (e) => {
   const isWinStatus = checkWinStatus();
 
   if (isWinStatus) {
-    alert("Winner!");
     // TODO: Announce win.
     win();
+    movesArray = [];
   }
 };
 
@@ -337,5 +337,22 @@ async function gameSolver() {
 }
 
 function win(){
-    alert("You Won");
+    let modal = document.getElementById("myModal");
+    var span = document.getElementsByClassName("close")[0];
+    modal.style.display = "block";
+    let Time = document.getElementById("Timer");
+    
+    Time.innerHTML="Time Taken in seconds "+ document.getElementById("timer").textContent
+
+    console.log(document.getElementById("timer"))
+    span.onclick = function() {
+        modal.style.display = "none";
+      }
+      
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
 }
