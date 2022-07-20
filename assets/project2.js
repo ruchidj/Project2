@@ -193,26 +193,11 @@ function checkMove(e) {
 function moveTile(emptyTile, tile) {
     let emptyCopy = emptyTile.cloneNode(true);
     let tileCopy = tile.cloneNode(true);
-    /*
-    * .move-up {
-    transform: translate(0, -100px);
-}
 
-.move-down {
-    transform: translate(0, 100px);
-}
-
-.move-left {
-    transform: translate(-100px, 0);
-}
-
-.move-right {
-    transform: translate(100px, 0);
-}*/
     // somehow convert ^ those into code
 
     // locate the tile w.r.t empty tile gives us the vector for movement
-    // in (dY, dX)
+    // in (dY * base_distance, dX * distance)
     let dX = emptyTile.dataset.row - tile.dataset.row;
     let dY = emptyTile.dataset.column - tile.dataset.column;
 
@@ -236,7 +221,10 @@ function getNeighbours(row, column) {
     let allTiles = document.getElementsByClassName('tile');
     let neighbours = [];
     for (const tile of allTiles) {
-        if (isOneAway(tile.dataset.row, row) && isOneAway(tile.dataset.column, column)) {
+        let oneRowAway = isOneAway(tile.dataset.row, row);
+        let oneColAway = isOneAway(tile.dataset.column, column);
+        if (oneRowAway ? !oneColAway : oneColAway) {
+            // logical xor
             neighbours.push(tile);
         }
     }
