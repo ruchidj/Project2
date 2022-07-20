@@ -20,8 +20,11 @@
         * Finish Solver - 1 Feature (solver)
         * End of game notification - 1 Feature (EoG noti)
 */
-const BASE_DISTANCE = 100;
+let base_distance = 100;
+let edge = 0;
 let track_moves = 0;
+let white_tile = "t15";
+let difficulty = "easy";
 
 // helper functions
 // deletes all children of a given element
@@ -55,27 +58,35 @@ function timer(){
     }, 1000);
 }
 
-// check if it can be moved
-function checkMove() {
-
-}
-
 // accept the form here to then build out the game
 function initializeGame(form) {
     let size = form.size.value;
     let img = form.img.value;
     let music = form.music.value;
-
-    let choose = Math.floor(Math.random() * 3);
+    console.log(size);
+    console.log(img);
+    let choose = Math.floor(Math.random() * 3) + 1;
 
     switch (size) {
-        case 4:
+        case "4":
+            base_distance = 400/4;
+            white_tile = "t15";
+            difficulty = "easy";
+            edge = 4;
             buildBoard(4, `./assets/img/${img}_${choose}.jpg`);
             return true;
-        case 5:
+        case "5":
+            base_distance = 400/5;
+            white_tile = "t24";
+            difficulty = "med";
+            edge = 5;
             buildBoard(5, `./assets/img/${img}_${choose}.jpg`);
             return true;
-        case 6:
+        case "6":
+            base_distance = 400/6;
+            white_tile = "t35";
+            difficulty = "hard";
+            edge = 6;
             buildBoard(6, `./assets/img/${img}_${choose}.jpg`);
             return true;
     }
@@ -89,8 +100,15 @@ function initializeGame(form) {
     }
 
     // default
+    base_distance = 400/4;
+    white_tile = "t15";
+    difficulty = "easy";
     buildBoard(4, "./assets/img/easy_2.jpg");
     return true;
+}
+
+function buildCss(row, col, identifier) {
+    return `background-position: ${-(col * base_distance)}px ${-(row * base_distance)}px`;
 }
 
 // builds the play-board
@@ -102,7 +120,11 @@ function buildBoard(size, img) {
     let currentTile = 0;
     for (const row of Array(size).keys()) {
         for (const col of Array(size).keys()) {
-            gameSection.append(buildTile(row, col, currentTile, gameSection, (size * size), img));
+            // define the css here and pass it to the build function
+            // let cssString = buildCss(row, col, currentTile);
+            let tile = buildTile(row, col, currentTile, gameSection, (size * size), img);
+            // tile.setAttribute('style', cssString);
+            gameSection.append(tile);
             currentTile += 1;
         }
     }
@@ -122,19 +144,40 @@ function buildBoard(size, img) {
 function buildTile(row, col, identifier, section, numTiles, img) {
     let tile = document.createElement('div');
     // id is original position according to our math
-    tile.id = identifier;
+    tile.id = "t" + identifier;
 
     tile.innerText = identifier;
-    tile.style.background = `url(${img})`;
-
     // data-column, data-row give CURRENT location of tile
+
     tile.setAttribute('data-column', col);
     tile.setAttribute('data-row', row);
     tile.addEventListener('click', checkMove);
 
-    tile.className = 'tile';
+    tile.classList.add('tile');
+
+    if (identifier === (numTiles - 1)) {
+        // white tile
+        tile.style.background = "white !important";
+        tile.style.border = "2px solid white !important"
+    } else {
+        tile.style.backgroundImage = `url(${img})`;
+    }
+    // default for all tiles
+    tile.style.width = (base_distance - 5)+ "px";
+    tile.style.height = (base_distance - 5)+ "px";
+    tile.style.backgroundPositionX = -(col * base_distance) + "px";
+    tile.style.backgroundPositionY = -(row * base_distance) + "px";
 
     return tile;
+}
+
+// check if it can be moved
+function checkMove(e) {
+    // e gives us the calling div
+    console.log(e);
+    let tile = e.target;
+    let emptyTile = document.getElementById(white_tile)
+
 }
 
 function moveTile(emptyTile,Tile){
