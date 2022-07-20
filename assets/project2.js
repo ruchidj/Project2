@@ -222,7 +222,7 @@ const handleTileClick = (e) => {
   if (isWinStatus) {
     // TODO: Announce win.
     win();
-    movesArray = [];
+    
   }
 };
 
@@ -256,6 +256,7 @@ function moveTile(emptyTile, tile, skipMoveStorage) {
   // simply reorder the elements :5head:
   document.getElementById("game-section").replaceChild(emptyCopy, tile);
   document.getElementById("game-section").replaceChild(tileCopy, emptyTile);
+  track_moves = track_moves + 1;
 }
 
 function getNeighbors(tile) {
@@ -337,17 +338,19 @@ async function gameSolver() {
 }
 
 function win(){
+    
     let modal = document.getElementById("myModal");
     var span = document.getElementsByClassName("close")[0];
     modal.style.display = "block";
     let Time = document.getElementById("Timer");
+    let moves = document.getElementById("moves");
     
     Time.innerHTML="Time Taken in seconds "+ document.getElementById("timer").textContent
-
-    console.log(document.getElementById("timer"))
+    moves.innerHTML="Number of Moves "+ track_moves;
     span.onclick = function() {
         modal.style.display = "none";
-      }
+    }
+
       
       // When the user clicks anywhere outside of the modal, close it
       window.onclick = function(event) {
@@ -355,4 +358,6 @@ function win(){
           modal.style.display = "none";
         }
       }
+    movesArray = [];
+    track_moves=0;
 }
