@@ -2,21 +2,21 @@
     margin: auto;
     height: 400px;
     width: 400px;
-}
-
-.game-form {
+  }
+  
+  .game-form {
     justify-content: center;
     justify-items: center;
-}
-
-.timer {
+  }
+  
+  .timer {
     margin-left: auto;
     margin-right: auto;
     margin-top: 5px;
-    max-height: min-content
-}
-
-.tile {
+    max-height: min-content;
+  }
+  
+  .tile {
     float: left;
     text-align: center;
     border: 2px black solid;
@@ -24,30 +24,33 @@
     font-size: 32px;
     font-family: sans-serif;
     line-height: 100px;
-}
-
-.tile-easy {
+    -webkit-user-select: none; /* Safari */
+    user-select: none;
+  }
+  
+  .tile-easy {
     width: 95px;
     height: 95px;
-}
-
-.tile-med {
+  }
+  
+  .tile-med {
     width: 75px;
     height: 75px;
-}
-
-.tile-hard {
+  }
+  
+  .tile-hard {
     width: 60px;
     height: 60px;
-}
-
-.tile:active {
+  }
+  
+  .tile:active {
     border: aquamarine solid 2px;
-    transition: transform .2s;
-}
-
-.tile:hover {
+    transition: transform 0.2s;
+  }
+  
+  .tile:hover {
     border-color: red !important;
     text-decoration: underline !important;
     color: green;
-}
+  }
+  

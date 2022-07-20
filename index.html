@@ -1,64 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Project 2</title>
-    <link rel="stylesheet" href="./assets/boilerplate.css">
-    <link rel="stylesheet" href="./assets/project2.css">
-    <style>
-
-    </style>
+    <link rel="stylesheet" href="./assets/boilerplate.css" />
+    <link rel="stylesheet" href="./assets/project2.css" />
 </head>
-<script src="./assets/project2.js"></script>
-<body>
-<h1>Fifteen Puzzle</h1>
-<p>
-    The goal of the fifteen puzzle is to un-jumble its fifteen squares by repeatedly making moves that slide
-    squares into the empty space. How quickly can you solve it?
-</p>
-<div class="timer">
-    <h2>Time Left</h2>
-    <p id="timer"></p>
-</div>
-<audio id="bgm-music" src="./assets/background.mp3" hidden></audio>
-<div id="game-section" class="game-section">
-    <form id="game-form" onsubmit="return initializeGame(this)">
-        <h3>Please select a difficulty level</h3>
-        <label>
-            <input name="img" type="radio" value="easy"> Easy
-        </label>
-        <label>
-            <input name="img" type="radio" value="medium"> Medium
-        </label>
-        <label>
-            <input name="img" type="radio" value="hard"> Hard
-        </label>
-        <h3>Please select size of board</h3>
-        <label>
-            <input name="size" type="radio" value="4"> 4x4 (16)
-        </label>
-        <label>
-            <input name="size" type="radio" value="5"> 5x5 (25)
-        </label>
-        <label>
-            <input name="size" type="radio" value="6"> 6x6 (36)
-        </label>
-        <h3>Would you like some background music?</h3>
-        <label>
-            <input name="music" type="radio" value="on"> On
-        </label>
-        <label>
-            <input name="music" type="radio" value="off"> Off
-        </label><br>
-        <input style="margin-left: 20px" type="submit" value="Let's Play">
-    </form>
-</div>
-<button onclick="shuffle()">Shuffle</button>
 
-<p>
-    American puzzle author and mathematician Sam Loyd is often falsely credited with creating the puzzle; indeed,
-    Loyd claimed from 1891 until his death in 1911 that he invented it. The puzzle was actually created around 1874
-    by Noyes Palmer Chapman, a postmaster in Canastota, New york.
-</p>
+<body>
+    <h1>Fifteen Puzzle</h1>
+    <p>
+        The goal of the fifteen puzzle is to un-jumble its fifteen squares by
+        repeatedly making moves that slide squares into the empty space. How
+        quickly can you solve it?
+    </p>
+    <div class="timer">
+        <h2>Time Elapsed</h2>
+        <p id="timer"></p>
+    </div>
+    <audio id="bgm-music" src="./assets/background.mp3" hidden></audio>
+    <div id="game-section" class="game-section">
+        <form id="game-form" onsubmit="return initializeGame(this)">
+            <h3>Please select a difficulty level</h3>
+            <label> <input name="img" type="radio" value="easy" checked /> Easy </label>
+            <label> <input name="img" type="radio" value="medium" /> Medium </label>
+            <label> <input name="img" type="radio" value="hard" /> Hard </label>
+            <h3>Please select size of board</h3>
+            <label> <input name="size" type="radio" value="4" checked /> 4x4 (16) </label>
+            <label> <input name="size" type="radio" value="5" /> 5x5 (25) </label>
+            <label> <input name="size" type="radio" value="6" /> 6x6 (36) </label>
+            <h3>Would you like some background music?</h3>
+            <label> <input name="music" type="radio" value="on" /> On </label>
+            <label> <input name="music" type="radio" value="off" checked /> Off </label><br />
+            <input style="margin-left: 20px" type="submit" value="Let's Play" />
+        </form>
+    </div>
+    <button onclick="shuffle()">Shuffle</button>
+    <button onclick="gameSolver()">Cheat Button</button>
+
+    <p>
+        American puzzle author and mathematician Sam Loyd is often falsely
+        credited with creating the puzzle; indeed, Loyd claimed from 1891 until
+        his death in 1911 that he invented it. The puzzle was actually created
+        around 1874 by Noyes Palmer Chapman, a postmaster in Canastota, New york.
+    </p>
+    <script src="./assets/project2.js"></script>
 </body>
+
 </html>
