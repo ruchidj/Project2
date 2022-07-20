@@ -63,11 +63,34 @@ function checkMove() {
 // accept the form here to then build out the game
 function initializeGame(form) {
     let size = form.size.value;
-    let img = form.image.value;
+    let img = form.img.value;
+    let music = form.music.value;
 
-    // TODO: Add validation
+    let choose = Math.floor(Math.random() * 3);
 
-    buildBoard(size, img);
+    switch (size) {
+        case 4:
+            buildBoard(4, `./assets/img/${img}_${choose}.jpg`);
+            return true;
+        case 5:
+            buildBoard(5, `./assets/img/${img}_${choose}.jpg`);
+            return true;
+        case 6:
+            buildBoard(6, `./assets/img/${img}_${choose}.jpg`);
+            return true;
+    }
+
+    switch (music) {
+        case 'on':
+            document.getElementById('bgm-music').play();
+            break;
+        case 'off':
+            break;
+    }
+
+    // default
+    buildBoard(4, "./assets/img/easy_2.jpg");
+    return true;
 }
 
 // builds the play-board
@@ -79,37 +102,15 @@ function buildBoard(size, img) {
     let currentTile = 0;
     for (const row of Array(size).keys()) {
         for (const col of Array(size).keys()) {
-            gameSection.append(buildTile(row, col, currentTile, gameSection, (size * size)));
+            gameSection.append(buildTile(row, col, currentTile, gameSection, (size * size), img));
             currentTile += 1;
         }
     }
 
-    // second to last thing to do is start the audio and timer
-    document.getElementById('bgm-music').play();
     timer();
 }
 
 // builds an individual tile on the board
-function buildTile(row, col, identifier, section, numTiles, img) {
-    let tile = document.createElement('div');
-    // id is original position according to our math
-    tile.id = identifier;
-
-    tile.innerText = identifier;
-    // data-column, data-row give CURRENT location of tile
-    tile.setAttribute('data-column', col);
-    tile.setAttribute('data-row', row);
-    tile.addEventListener('click', checkMove);
-
-    tile.style.width = (section.clientWidth / numTiles) - 10 + "px";
-    tile.style.height = (section.clientHeight / numTiles) - 10 + "px";
-
-    // builds the individual img for us
-    tile.appendChild(buildImg(img, identifier))
-
-    return tile;
-}
-
 /*
         0   1   2   3
         4   5   6   7
@@ -118,13 +119,22 @@ function buildTile(row, col, identifier, section, numTiles, img) {
     @tileLocation follows above convention
     @image is a string pointing to img location in server
  */
-function buildImg(image, tileLocation) {
-    let imgElement = document.createElement('img');
-    imgElement.src = image;
+function buildTile(row, col, identifier, section, numTiles, img) {
+    let tile = document.createElement('div');
+    // id is original position according to our math
+    tile.id = identifier;
 
-    // TODO: underlying assumption img is forced into 400 x 400
+    tile.innerText = identifier;
+    tile.style.background = `url(${img})`;
 
-    return imgElement;
+    // data-column, data-row give CURRENT location of tile
+    tile.setAttribute('data-column', col);
+    tile.setAttribute('data-row', row);
+    tile.addEventListener('click', checkMove);
+
+    tile.className = 'tile';
+
+    return tile;
 }
 
 function moveTile(emptyTile,Tile){
