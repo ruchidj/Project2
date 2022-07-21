@@ -5,16 +5,14 @@
 // can be used for a bunch of functions including calculating the div background locations
 
 /*
-    Shardul - TODO:
+    Shardul -
         * Finish making the tiles interactible
         * Get timer working - 1 feature (game time + music)
         * Finish UI builder - 1 feature (different puzzles sizes)
         * Add in more backgrounds - 1 feature (multiple backgrounds)
         * Multi-select on hover - 1 feature (multi-select)
 
-    *** FIGURE OUT EXTRA FEATURE??? - Second scale of difficulty (all white/all black tiles)??? ***
-
-    Ruchita - TODO:
+    Ruchita -
         * Finish Shuffler
         * Finish Solver - 1 Feature (solver)
         * End of game notification - 1 Feature (EoG noti)
